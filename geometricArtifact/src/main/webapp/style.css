@@ -1,0 +1,33 @@
+body {
+    text-align: center;
+    background-color: rgb(185, 185, 185);
+    color: black!important
+}
+input[type="text"] {
+    background-color: rgb(185, 185, 185);
+}
+::placeholder {
+    color: black
+}
+.answer {
+    color: black
+}
+.error {
+    color: red
+}
+.unwatch
+{
+    display: none;
+}
+.InputContainer{
+    width: 50%;
+    display: inline-block;
+}
+.InputContainerDescription{
+    width: 50%;
+    display: inline-block;
+}
+.InputContainerInput{
+    width: 50%;
+    display: inline-block;
+}
