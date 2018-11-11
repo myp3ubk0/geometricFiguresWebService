@@ -1,4 +1,4 @@
 .vscode
-geometricArtifact/.settings
-geometricArtifact/target
-geometricArtifact/.project
+.settings
+target
+.project
