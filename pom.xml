@@ -4,12 +4,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>geometric</groupId>
-  <artifactId>geometricArtifact</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <groupId>geometricFiguresWebService</groupId>
+  <artifactId>geometricFiguresWebService</artifactId>
+  <version>1.0.1</version>
   <packaging>war</packaging>
 
-  <name>geometricArtifact Maven Webapp</name>
+  <name>geometricFiguresWebService Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -25,7 +25,7 @@
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
-    </dependency> 
+    </dependency>
     <dependency>  
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
@@ -36,11 +36,11 @@
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
       <version>1.2</version>
-    </dependency>   
+    </dependency>  
   </dependencies>
 
   <build>
-    <finalName>geometricArtifact</finalName>
+    <finalName>geometricFiguresWebService</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
@@ -73,24 +73,25 @@
           <version>2.8.2</version>
         </plugin>
         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-                <execution>
-                    <phase>package</phase>
-                    <goals><goal>copy</goal></goals>
-                    <configuration>
-                        <artifactItems>
-                            <artifactItem>
-                                <groupId>com.github.jsimone</groupId>
-                                <artifactId>webapp-runner</artifactId>
-                                <version>9.0.11.0</version>
-                                <destFileName>webapp-runner.jar</destFileName>
-                            </artifactItem>
-                        </artifactItems>
-                    </configuration>
-                </execution>
-            </executions>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.3</version>
+          <executions>
+              <execution>
+                  <phase>package</phase>
+                  <goals><goal>copy</goal></goals>
+                  <configuration>
+                      <artifactItems>
+                          <artifactItem>
+                              <groupId>com.github.jsimone</groupId>
+                              <artifactId>webapp-runner</artifactId>
+                              <version>7.0.82.0</version>
+                              <destFileName>webapp-runner.jar</destFileName>
+                          </artifactItem>
+                      </artifactItems>
+                  </configuration>
+              </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
