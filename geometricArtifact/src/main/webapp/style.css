@@ -1,0 +1,18 @@
+body {
+    text-align: center;
+    background-color: rgb(124, 124, 124);
+    color: black!important
+}
+input[type="text"] {
+    background-color: rgb(124, 124, 124);
+}
+::placeholder {
+    color: black
+}
+.answer {
+    color: red
+}
+.unwatch
+{
+    visibility: hidden;
+}
