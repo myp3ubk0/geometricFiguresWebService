@@ -14,8 +14,8 @@
             <div class='InputContainer'>
             <h3 class='InputContainerDescription'>Выберите тип рассчитываемой фигуры</h3>
                 <select id="foobarSelection" class='InputContainerInput' name="figureType" onchange="document.getElementById('foobar').submit()">
-                    <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 0) {%><option value="0" selected >Выберите тип фигуры</option><% } %>
-                    <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 0) {%><option value="0" >Выберите тип фигуры</option><% } %>
+                    <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 0) {%><option value="0" selected >***Выберите тип фигуры***</option><% } %>
+                    <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 0) {%><option value="0" >***Выберите тип фигуры***</option><% } %>
                     <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 1) {%><option value="1" selected >Треугольник (по трем сторонам)</option><% } %>
                     <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 1) {%><option value="1" >Треугольник (по трем сторонам)</option><% } %>
                     <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 2) {%><option value="2" selected >Треугольник (по стороне и выстоте)</option><% } %>
@@ -36,8 +36,8 @@
                     <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 9) {%><option value="9" >Окружность</option><% } %>
                     <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 10) {%><option value="10" selected >Эллипс</option><% } %>
                     <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 10) {%><option value="10" >Эллипс</option><% } %>
-                    <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 11) {%><option value="11" selected >Окружность</option><% } %>
-                    <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 11) {%><option value="11" >Окружность</option><% } %>
+                    <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 11) {%><option value="11" selected >Парралелограмм (по сторонам и высоте)</option><% } %>
+                    <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 11) {%><option value="11" >Парралелограмм (по сторонам и высоте)</option><% } %>
                 </select>
             </div>
         </form>

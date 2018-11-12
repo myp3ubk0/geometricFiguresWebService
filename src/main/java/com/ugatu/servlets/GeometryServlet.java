@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
 
 public class GeometryServlet extends HttpServlet {
     /**
@@ -57,6 +55,7 @@ public class GeometryServlet extends HttpServlet {
         DoRightPolygonAngle(req);
         DoCircle(req);
         DoEllipse(req);
+        DoParallelogramm(req);
         //Получаем модель формы для подстановки значений
         FormVisualisation.GetForm(req);
         /*
@@ -68,69 +67,65 @@ public class GeometryServlet extends HttpServlet {
 
     protected Boolean IsTriangle(Double s1, Double s2, Double s3)
     {
-        boolean result = true;
-        if (s1 <=0 || s2 <=0 || s3 <=0) result = false;
-        if (s1 >= s2+s3) result = false;
-        if (s2 >= s1+s3) result = false;
-        if (s3 >= s1+s2) result = false;
-        return result;
+        if (s1 <=0 || s2 <=0 || s3 <=0) return false;
+        if (s1 >= s2+s3) return false;
+        if (s2 >= s1+s3) return false;
+        if (s3 >= s1+s2) return false;
+        return true;
     }
     protected Boolean IsTriangleAngle(Double s1, Double s2, Double angle)
     {
-        boolean result = true;
-        if (s1 <=0 || s2 <=0 || angle <=0) result = false;
-        if (angle <=0 || angle >=180) result = false;
-        return result;
+        if (s1 <=0 || s2 <=0 || angle <=0) return false;
+        if (angle <=0 || angle >=180) return false;
+        return true;
     }
     protected Boolean IsTriangle(Double s1, Double s2)
     {
-        boolean result = true;
-        if (s1 <=0 || s2 <=0) result = false;
-        return result;
+        if (s1 <=0 || s2 <=0) return false;
+        return true;
     }
     protected Boolean IsRectangleSides(Double s1, Double s2)
     {
-        boolean result = true;
-        if (s1 <=0 || s2 <=0) result = false;
-        return result;
+        if (s1 <=0 || s2 <=0) return false;
+        return true;
     }
     protected Boolean IsRectangleDiameter(Double d, Double s)
     {
-        boolean result = true;
-        if (d <=0 || s <=0) result = false;
-        if (d<=s) result = false;
-        return result;
+        if (d <=0 || s <=0) return false;
+        if (d<=s) return false;
+        return true;
     }
     protected Boolean IsSquare(Double s)
     {
-        boolean result = true;
-        if (s <=0) result = false;
-        return result;
+        if (s <=0) return false;
+        return true;
     }
     protected Boolean IsPolygon(Double s, Double n)
     {
-        boolean result = true;
-        if (s <=0 || n <=0) result = false;
-        return result;
+        if (s <=0 || n <=0) return false;
+        return true;
     }
     protected Boolean IsPolygonAngle(Double s, Double angle)
     {
-        boolean result = true;
-        if (s <=0 || angle <=0) result = false;
-        if (angle <=0 || angle >=180) result = false;
-        return result;
+        if (s <=0 || angle <=0) return false;
+        if (angle <=0 || angle >=180) return false;
+        return true;
     }
     protected Boolean IsCircle(Double r)
     {
-        boolean result = true;
-        if (r<=0) result = false;
-        return result;
+        if (r<=0) return false;
+        return true;
     }
     protected Boolean IsEllipse(Double r1,Double r2)
     {
-        boolean result = true;
-        if (r1 <=0 || r2 <=0) result = false;
-        return result;
+        if (r1 <=0 || r2 <=0) return false;
+        return true;
+    }
+    protected Boolean IsParallelogramm(Double s1,Double s2, Double h1)
+    {
+        if (s1 <=0 || s2 <=0 || h1 <=0) return false;
+        if (s2< h1) return false;
+        return true;
     }
 
     protected void DoTriangleThreeSides (HttpServletRequest req)
@@ -424,6 +419,38 @@ public class GeometryServlet extends HttpServlet {
                     req.setAttribute("answer", "Эллипс с полуосями " + ellipseRaduis1 + " и " + ellipseRaduis2 + " имеет:</br>"+
                     "Длина окружности (периметр) - " + ellipseP + "</br>"+
                     "Площадь - " + ellipseS);
+                }
+            }
+            catch (NumberFormatException exception) 
+            {
+                String errorText = "Ошибка!\r\n";            
+                req.setAttribute("error", errorText);
+            }
+        }
+    }
+    protected void DoParallelogramm (HttpServletRequest req)
+    {
+        String paral1Attribute = req.getParameter("paral1");
+        String paral2Attribute = req.getParameter("paral2");
+        String paralH1Attribute = req.getParameter("paralH1");
+        if ((paral1Attribute != null) && (paral2Attribute != null) && (paralH1Attribute != null))
+        {
+            try 
+            {
+                Double paral1 = Double.parseDouble(paral1Attribute);
+                Double paral2 = Double.parseDouble(paral2Attribute);
+                Double paralH1 = Double.parseDouble(paralH1Attribute);
+                if (!IsParallelogramm(paral1, paral2, paralH1))
+                {
+                    req.setAttribute("error", "Значения сторон " + paral1 + "," + paral2 + " и высоты к первой стороне  " + paralH1 + " не могут составить параллелограмм!");
+                }
+                else
+                {
+                    Double paralP = paral1*paralH1;
+                    Double paralS = 2*(paral1+paral2);
+                    req.setAttribute("answer", "Паралелограмм со сторонами " + paral1 + "," + paral2 + " и высоты к первой стороне  " + paralH1 + " имеет:</br>"+
+                    "Периметр - " + paralP + "</br>"+
+                    "Площадь - " + paralS);
                 }
             }
             catch (NumberFormatException exception) 
