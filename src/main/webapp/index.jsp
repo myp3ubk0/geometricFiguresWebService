@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="style.css"> 
     <meta charset="utf-8">
-    <title>MyFirstServlet</title>
+    <title>Сервис расчета геометрических фигур</title>
 </head>
     <body>
         <h1>Сервис расчета геометрических фигур</h1>
@@ -32,10 +32,10 @@
                     <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 7) {%><option value="7" >Правильный N-угольник (по количеству сторон)</option><% } %>
                     <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 8) {%><option value="8" selected >Правильный N-угольник (по углу между сторонами)</option><% } %>
                     <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 8) {%><option value="8" >Правильный N-угольник (по углу между сторонами)</option><% } %>
-                    <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 9) {%><option value="9" selected >Трапеция</option><% } %>
-                    <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 9) {%><option value="9" >Трапеция</option><% } %>
-                    <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 10) {%><option value="10" selected >Правильный N-угольник</option><% } %>
-                    <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 10) {%><option value="10" >Правильный N-угольник</option><% } %>
+                    <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 9) {%><option value="9" selected >Окружность</option><% } %>
+                    <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 9) {%><option value="9" >Окружность</option><% } %>
+                    <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 10) {%><option value="10" selected >Эллипс</option><% } %>
+                    <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 10) {%><option value="10" >Эллипс</option><% } %>
                     <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 11) {%><option value="11" selected >Окружность</option><% } %>
                     <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 11) {%><option value="11" >Окружность</option><% } %>
                 </select>

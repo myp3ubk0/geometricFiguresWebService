@@ -55,6 +55,8 @@ public class GeometryServlet extends HttpServlet {
         DoSquare(req);
         DoRightPolygonAmount(req);
         DoRightPolygonAngle(req);
+        DoCircle(req);
+        DoEllipse(req);
         //Получаем модель формы для подстановки значений
         FormVisualisation.GetForm(req);
         /*
@@ -116,6 +118,18 @@ public class GeometryServlet extends HttpServlet {
         boolean result = true;
         if (s <=0 || angle <=0) result = false;
         if (angle <=0 || angle >=180) result = false;
+        return result;
+    }
+    protected Boolean IsCircle(Double r)
+    {
+        boolean result = true;
+        if (r<=0) result = false;
+        return result;
+    }
+    protected Boolean IsEllipse(Double r1,Double r2)
+    {
+        boolean result = true;
+        if (r1 <=0 || r2 <=0) result = false;
         return result;
     }
 
@@ -352,6 +366,64 @@ public class GeometryServlet extends HttpServlet {
                     req.setAttribute("answer", "Правильный многоугольник с сторонами размером" + polyAngleSide + " и углом между двумя сторонами "+ polyAngleAngle+" имеет:</br>"+
                     "Периметр - " + polyP + "</br>"+
                     "Площадь - " + polyS);
+                }
+            }
+            catch (NumberFormatException exception) 
+            {
+                String errorText = "Ошибка!\r\n";            
+                req.setAttribute("error", errorText);
+            }
+        }
+    }
+    protected void DoCircle (HttpServletRequest req)
+    {
+        String circleRadiusAttribute = req.getParameter("circleRadius");
+        if (circleRadiusAttribute != null)
+        {
+            try 
+            {
+                Double circleRadius = Double.parseDouble(circleRadiusAttribute);
+                if (!IsCircle(circleRadius))
+                {
+                    req.setAttribute("error", "Значение радиуса " + circleRadius + " не позволяет составить окружность!");
+                }
+                else
+                {
+                    Double circleP = 2*circleRadius*Math.PI;
+                    Double circleS = Math.PI*circleRadius*circleRadius;
+                    req.setAttribute("answer", "Окружность радиуса " + circleRadius + " имеет:</br>"+
+                    "Длина окружности (периметр) - " + circleP + "</br>"+
+                    "Площадь - " + circleS);
+                }
+            }
+            catch (NumberFormatException exception) 
+            {
+                String errorText = "Ошибка!\r\n";            
+                req.setAttribute("error", errorText);
+            }
+        }
+    }
+    protected void DoEllipse (HttpServletRequest req)
+    {
+        String ellipseRaduis1Attribute = req.getParameter("ellipseRaduis1");
+        String ellipseRaduis2Attribute = req.getParameter("ellipseRaduis2");
+        if (ellipseRaduis1Attribute != null && ellipseRaduis2Attribute != null)
+        {
+            try 
+            {
+                Double ellipseRaduis1 = Double.parseDouble(ellipseRaduis1Attribute);
+                Double ellipseRaduis2 = Double.parseDouble(ellipseRaduis2Attribute);
+                if (!IsEllipse(ellipseRaduis1,ellipseRaduis2))
+                {
+                    req.setAttribute("error", "Значения полуосей " + ellipseRaduis1 + " и " + ellipseRaduis2 + " не позволяют составить эллипс!");
+                }
+                else
+                {
+                    Double ellipseP = ellipseRaduis1*ellipseRaduis2*Math.PI;
+                    Double ellipseS = 2*Math.PI*Math.sqrt((ellipseRaduis1*ellipseRaduis1+ellipseRaduis2*ellipseRaduis2)/2);
+                    req.setAttribute("answer", "Эллипс с полуосями " + ellipseRaduis1 + " и " + ellipseRaduis2 + " имеет:</br>"+
+                    "Длина окружности (периметр) - " + ellipseP + "</br>"+
+                    "Площадь - " + ellipseS);
                 }
             }
             catch (NumberFormatException exception) 

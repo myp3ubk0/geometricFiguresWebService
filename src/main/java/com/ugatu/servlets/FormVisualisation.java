@@ -136,6 +136,23 @@ public class FormVisualisation extends HttpServlet {
                 "</div>"+
                 "<input type='submit' value='Рассчитать!' />";
             }
+            if (figureType == 9)
+            {
+                formText = "<div>"+
+                "<h2>Для расчета параметров окружности необходим радиус (половина диаметра)</h2>"+
+                GetAnInputContainer("Радиус ","circleRadius","Введите значение")+
+                "</div>"+
+                "<input type='submit' value='Рассчитать!' />";
+            }
+            if (figureType == 10)
+            {
+                formText = "<div>"+
+                "<h2>Для расчета параметров эллипса необходимы малая и большая полуоси (половины осей эллипса)</h2>"+
+                GetAnInputContainer("Малая полуось ","ellipseRaduis1","Введите значение")+
+                GetAnInputContainer("Большая полуось ","ellipseRaduis2","Введите значение")+
+                "</div>"+
+                "<input type='submit' value='Рассчитать!' />";
+            }
             req.setAttribute("form", formText);
             req.setAttribute("valueOfForm", figureType);
 
