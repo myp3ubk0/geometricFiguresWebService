@@ -66,7 +66,7 @@ public class FormVisualisation extends HttpServlet {
             if (figureType == 1)
             {
                 formText = "<div>"+
-                "<h2>Для расчета параметров треугольника потребуется три стороны</h2>"+
+                "<h3>Для расчета параметров треугольника потребуется три стороны</h3>"+
                 GetAnInputContainer("Сторона 1","triangle1","Введите значение")+
                 GetAnInputContainer("Сторона 2","triangle2","Введите значение")+
                 GetAnInputContainer("Сторона 3","triangle3","Введите значение")+
@@ -76,7 +76,7 @@ public class FormVisualisation extends HttpServlet {
             if (figureType == 2)
             {
                 formText = "<div>"+
-                "<h2>Для расчета параметров треугольника потребуется сторона и прилежащая к ней высота</h2>"+
+                "<h3>Для расчета параметров треугольника потребуется сторона и прилежащая к ней высота</h3>"+
                 GetAnInputContainer("Сторона","triangleSide","Введите значение")+
                 GetAnInputContainer("Высота","triangleSideHeight","Введите значение")+
                 "</div>"+
@@ -85,7 +85,7 @@ public class FormVisualisation extends HttpServlet {
             if (figureType == 3)
             {
                 formText = "<div>"+
-                "<h2>Для расчета параметров треугольника потребуется две стороны и угол между ними</h2>"+
+                "<h3>Для расчета параметров треугольника потребуется две стороны и угол между ними</h3>"+
                 GetAnInputContainer("Сторона 1 ","triangleSides1","Введите значение")+
                 GetAnInputContainer("Сторона 2 ","triangleSides2","Введите значение")+
                 GetAnInputContainer("Угол (в градусах)","triangleSidesAngle","Введите значение")+
@@ -95,7 +95,7 @@ public class FormVisualisation extends HttpServlet {
             if (figureType == 4)
             {
                 formText = "<div>"+
-                "<h2>Для расчета параметров прямоугольника потребуются его стороны</h2>"+
+                "<h3>Для расчета параметров прямоугольника потребуются его стороны</h3>"+
                 GetAnInputContainer("Сторона 1 ","rect1","Введите значение")+
                 GetAnInputContainer("Сторона 2 ","rect2","Введите значение")+
                 "</div>"+
@@ -104,7 +104,7 @@ public class FormVisualisation extends HttpServlet {
             if (figureType == 5)
             {
                 formText = "<div>"+
-                "<h2>Для расчета параметров прямоугольника потребуются его диагональ и сторона</h2>"+
+                "<h3>Для расчета параметров прямоугольника потребуются его диагональ и сторона</h3>"+
                 GetAnInputContainer("Диагональ ","rectD","Введите значение")+
                 GetAnInputContainer("Сторона ","rectS","Введите значение")+
                 "</div>"+
@@ -113,7 +113,7 @@ public class FormVisualisation extends HttpServlet {
             if (figureType == 6)
             {
                 formText = "<div>"+
-                "<h2>Для расчета параметров квадрата потребуется его сторона</h2>"+
+                "<h3>Для расчета параметров квадрата потребуется его сторона</h3>"+
                 GetAnInputContainer("Сторона ","square","Введите значение")+
                 "</div>"+
                 "<input type='submit' value='Рассчитать!' />";
@@ -121,7 +121,7 @@ public class FormVisualisation extends HttpServlet {
             if (figureType == 7)
             {
                 formText = "<div>"+
-                "<h2>Для расчета параметров правильного многоугольника потребуется сторона и количество сторон</h2>"+
+                "<h3>Для расчета параметров правильного многоугольника потребуется сторона и количество сторон</h3>"+
                 GetAnInputContainer("Сторона ","polyAmountSide","Введите значение")+
                 GetAnInputContainer("Количество сторон ","polyAmountAmount","Введите значение")+
                 "</div>"+
@@ -130,16 +130,42 @@ public class FormVisualisation extends HttpServlet {
             if (figureType == 8)
             {
                 formText = "<div>"+
-                "<h2>Для расчета параметров правильного многоугольника потребуется сторона и угол между двумя сторонами</h2>"+
+                "<h3>Для расчета параметров правильного многоугольника потребуется сторона и угол между двумя сторонами</h3>"+
                 GetAnInputContainer("Сторона ","polyAngleSide","Введите значение")+
                 GetAnInputContainer("Угол между сторонами ","polyAngleAngle","Введите значение")+
+                "</div>"+
+                "<input type='submit' value='Рассчитать!' />";
+            }
+            if (figureType == 9)
+            {
+                formText = "<div>"+
+                "<h3>Для расчета параметров окружности необходим радиус (половина диаметра)</h3>"+
+                GetAnInputContainer("Радиус ","circleRadius","Введите значение")+
+                "</div>"+
+                "<input type='submit' value='Рассчитать!' />";
+            }
+            if (figureType == 10)
+            {
+                formText = "<div>"+
+                "<h3>Для расчета параметров эллипса необходимы малая и большая полуоси (половины осей эллипса)</h3>"+
+                GetAnInputContainer("Малая полуось ","ellipseRaduis1","Введите значение")+
+                GetAnInputContainer("Большая полуось ","ellipseRaduis2","Введите значение")+
+                "</div>"+
+                "<input type='submit' value='Рассчитать!' />";
+            }
+            if (figureType == 11)
+            {
+                formText = "<div>"+
+                "<h3>Для расчета параметров параллелограмма необходимы две стороны и высота (проведенная к первой стороне!)</h3>"+
+                GetAnInputContainer("Сторона 1","paral1","Введите значение")+
+                GetAnInputContainer("Высота проведенная к стороне 1","paralH1","Введите значение")+
+                GetAnInputContainer("Сторона 2","paral2","Введите значение")+
                 "</div>"+
                 "<input type='submit' value='Рассчитать!' />";
             }
             req.setAttribute("form", formText);
             req.setAttribute("valueOfForm", figureType);
 
-            
         } catch (NumberFormatException exception) {
             /*
             Если произошла ошибка при переводе в численный тип,
