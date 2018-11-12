@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/geometricFicuresWebService/WEB-INF/lib/webapp-runner-9.0.11.0.jar --port $PORT target/geometricFicuresWebService.war
+web: java $JAVA_OPTS -jar target/geometricFiguresWebService/WEB-INF/lib/webapp-runner-9.0.11.0.jar --port $PORT target/geometricFiguresWebService.war
