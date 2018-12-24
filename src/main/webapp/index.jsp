@@ -1,19 +1,22 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %> <!-- Указываем, что этот файл - страница сервлета java-->
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css"> 
-    <meta charset="utf-8">
-    <title>Сервис расчета геометрических фигур</title>
+    <link rel="stylesheet" type="text/css" href="style.css"> <!-- Подключение файла со стилями-->
+    <meta charset="utf-8"><!-- Указываем кодировку -->
+    <title>Сервис расчета геометрических фигур</title> <!-- Указываем заголовок страницы -->
 </head>
     <body>
-        <h1>Сервис расчета геометрических фигур</h1>
+        <h1>Сервис расчета геометрических фигур</h1> <!-- Название сервиса на самом верху страницы-->
         
-        <!-- Форма, содержащая в себе кнопку и техтовое поле.
-             По нажатию на кнопку отправит POST запрос на сервлет-->
+        <!-- Форма, содержащая в себе поле со списком типов фигур и техтовое поле.
+             По выбору отправит POST запрос на сервлет-->
         <form action="getForm" method="POST" id="foobar">
             <div class='InputContainer'>
-            <h3 class='InputContainerDescription'>Выберите тип рассчитываемой фигуры</h3>
+                <h3 class='InputContainerDescription'>Выберите тип рассчитываемой фигуры</h3>
                 <select id="foobarSelection" class='InputContainerInput' name="figureType" onchange="document.getElementById('foobar').submit()">
+                    <!--В поле со списком по умолчанию отображается первое значение. 
+                    В загруженной странице после выбора соответствующий элемент становится выбранным по-умолчанию(Будет использоваться первая строка)
+                    Иначе этот элемент не будет выбран (Будет использоватья вторая строка)-->
                     <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 0) {%><option value="0" selected >***Выберите тип фигуры***</option><% } %>
                     <% if (request.getAttribute("valueOfForm") == null || (int)request.getAttribute("valueOfForm") != 0) {%><option value="0" >***Выберите тип фигуры***</option><% } %>
                     <% if (request.getAttribute("valueOfForm") != null && (int)request.getAttribute("valueOfForm") == 1) {%><option value="1" selected >Треугольник (по трем сторонам)</option><% } %>
@@ -41,16 +44,21 @@
                 </select>
             </div>
         </form>
+        
+        <!-- Форма, содержащая в себе от одного до трех контейнеров для ввода.
+             По нажатию на кнопку "Рассчитать" отправит POST запрос на сервлет-->
         <form action="servlet" method="POST"> 
-            <script>
-                document.writeln('<input class="unwatch" name="figureType" value="' + document.getElementById('foobarSelection').options[document.getElementById('foobarSelection').selectedIndex].value + '">');
-            </script>
+            <!-- Добавление невидимого поля для передачи номера выбранной фигуры из поля выбора при отправке формы-->
+            <script>document.writeln('<input class="unwatch" name="figureType" value="' + document.getElementById('foobarSelection').options[document.getElementById('foobarSelection').selectedIndex].value + '">');</script>
+            <!-- Отображение формы, если она пришла-->
             <% if (request.getAttribute("form") != null){%><%=request.getAttribute("form")%><%}%>
         </form> 
                
+        <!-- Отображение ответа по рассчету фигуры в нормальном виде-->
         <h2 class="answer"> 
             <% if (request.getAttribute("answer") != null){%><%=request.getAttribute("answer")%><%}%>
-        </h2>       
+        </h2>     
+        <!-- Отображение ошибок-->  
         <h2 class="error"> 
             <% if (request.getAttribute("error") != null){%><%=request.getAttribute("error")%><%}%>
         </h2>
