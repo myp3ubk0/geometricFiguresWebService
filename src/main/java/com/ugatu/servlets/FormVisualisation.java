@@ -10,7 +10,7 @@ public class FormVisualisation extends HttpServlet {
     /**
      * Основной метод класса HttpServlet, вызывается сервером для обработки GET запросов.
      *
-     * @param req q{@link HttpServletRequest} объект, хранящий запрос,
+     * @param req {@link HttpServletRequest} объект, хранящий запрос,
      *                  сделанный клиентом к сервлету
      *
      * @param resp {@link HttpServletResponse} объект, хранящий ответ,
@@ -23,14 +23,15 @@ public class FormVisualisation extends HttpServlet {
      *                                  не может быть обработан
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req,resp); //Для пустого метода, передаем запрос дальше к классу родителю
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { 
+        GetForm(req); //оформление ответа и формирование атрибутов
+        req.getRequestDispatcher("index.jsp").forward(req, resp); //оформление jsp документа и передача ему управления
     }
 
     /**
      * Основной метод класса HttpServlet, вызывается сервером для обработки POST запросов.
      *
-     * @param req q{@link HttpServletRequest} объект, хранящий запрос,
+     * @param req {@link HttpServletRequest} объект, хранящий запрос,
      *                  сделанный клиентом к сервлету
      *
      * @param resp {@link HttpServletResponse} объект, хранящий ответ,
@@ -43,26 +44,36 @@ public class FormVisualisation extends HttpServlet {
      *                                  не может быть обработан
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //Получение значения, переданного с клиента, в виде строки
-        GetForm(req);
-        /*
-        Перенаправляем наш запрос на вторую страницу,
-        где и будем выводить наш ответ
-         */
-        req.getRequestDispatcher("index.jsp").forward(req, resp);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {        
+        GetForm(req); //оформление ответа и формирование атрибутов
+        req.getRequestDispatcher("index.jsp").forward(req, resp); //оформление jsp документа и передача ему управления
     }
+
+    /**
+     * Метод обработки аргументов из запроса и передачи ему ответа в виде html строки
+     *
+     * @param req {@link HttpServletRequest} объект, хранящий запрос,
+     *                  сделанный клиентом к сервлету
+     *
+     * @exception IOException вызывается, если обнаружена ошибка
+     *                              ввода-вывода при обработке POST запроса
+     *
+     * @exception ServletException вызывается, если POST запрос
+     *                                  не может быть обработан
+     */
     public static void GetForm (HttpServletRequest req) throws ServletException, IOException
     {
-        String reqAttribute = req.getParameter("figureType");
+        String reqAttribute = req.getParameter("figureType"); //передача значения атрибута "тип фигуры" в строковую переменную
+        /*
+        Переводим строку с типом фигуры в целое число
+        Если операция прошла успешно, то выполняем команды до окончания блока try{}
+        Если в строке кроме цифр были иные символы, то произойдет ошибка и сразу же начнет выполняться блок catch{}
+        */
         try {
-            /*
-            Переводим строку с возрастом в целое число
-            Если операция прошла успешно, то выполняем программу далее до окончания блока try{}
-            Если в строке не было целое число (например было буквы), то произойдет ошибка и сразу же начнет выполняться блок catch{}
-             */
-            int figureType = Integer.parseInt(reqAttribute);
-            String formText = "";
+            int figureType = Integer.parseInt(reqAttribute); //перевод строки в целое число
+            String formText = ""; //переменная, отвечающая за разметку формы на странице
+            //Здесь и далее проходит проверка на значение типа фигуры
+            //В зависимости от номера, будет появляться соответствующая ей форма
             if (figureType == 1)
             {
                 formText = "<div>"+
@@ -163,17 +174,25 @@ public class FormVisualisation extends HttpServlet {
                 "</div>"+
                 "<input type='submit' value='Рассчитать!' />";
             }
-            req.setAttribute("form", formText);
-            req.setAttribute("valueOfForm", figureType);
+            req.setAttribute("form", formText); //задание атрибута с разметкой формы
+            req.setAttribute("valueOfForm", figureType); //задание атрибута с номером типа формы (для поля с выбором)
 
         } catch (NumberFormatException exception) {
-            /*
-            Если произошла ошибка при переводе в численный тип,
-            то в атрибут пишем сообщение с ошибкой
-             */
+            // Если произошла ошибка при переводе в численный тип, то в атрибут ошибки пишем сообщение с ошибкой
             req.setAttribute("error", "Произошла ошибка работы. Попробуйте выбрать другой режим...");
         }
     }
+
+    /**
+     * Метод позволяет получить код контейнера ввода (текствое описание и поле для ввода)
+     *
+     * @param description {@link String} описание поля
+     *
+     * @param name {@link String} название поля (id)
+     *
+     * @param placeholder {@link String} сообщение при отсутствии значения
+     * 
+     */
     private static String GetAnInputContainer(String description, String name, String placeholder)
     {
         return "<dir class='InputContainer'><span class='InputContainerDescription'>"+ description +"</span>"+

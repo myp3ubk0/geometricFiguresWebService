@@ -10,7 +10,7 @@ public class GeometryServlet extends HttpServlet {
     /**
      * Основной метод класса HttpServlet, вызывается сервером для обработки GET запросов.
      *
-     * @param req q{@link HttpServletRequest} объект, хранящий запрос,
+     * @param req {@link HttpServletRequest} объект, хранящий запрос,
      *                  сделанный клиентом к сервлету
      *
      * @param resp {@link HttpServletResponse} объект, хранящий ответ,
@@ -24,13 +24,26 @@ public class GeometryServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req,resp); //Для пустого метода, передаем запрос дальше к классу родителю
+        //Получение значения, переданного с клиента, в виде строки
+        DoTriangleThreeSides(req); //Проверка треугольника с тремя сторонами
+        DoTriangleSideHeight(req); //Проверка прямоугольного треугольника
+        DoTriangleSidesAngle(req); //Проверка треугольника с двумя сторонами и углом между ними
+        DoRectangleSides(req); //Проверка прямоугольника по сторонам
+        DoRectangleDiameters(req); //Проверка прямоугольника по диаметрам
+        DoSquare(req); //Проверка квадрата
+        DoRightPolygonAmount(req); //Проверка правильного многоугольника по стороне и их количеству
+        DoRightPolygonAngle(req); //Проверка правильного многоугольника по стороне и их углу
+        DoCircle(req); //Проверка окружности
+        DoEllipse(req); //Проверка эллипса
+        DoParallelogramm(req); //Проверка парралелограмма        
+        FormVisualisation.GetForm(req); //Получаем обновленную модель формы для подстановки значений
+        req.getRequestDispatcher("index.jsp").forward(req, resp); //оформление jsp документа и передача ему управления
     }
 
     /**
      * Основной метод класса HttpServlet, вызывается сервером для обработки POST запросов.
      *
-     * @param req q{@link HttpServletRequest} объект, хранящий запрос,
+     * @param req {@link HttpServletRequest} объект, хранящий запрос,
      *                  сделанный клиентом к сервлету
      *
      * @param resp {@link HttpServletResponse} объект, хранящий ответ,
@@ -45,26 +58,30 @@ public class GeometryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //Получение значения, переданного с клиента, в виде строки
-        DoTriangleThreeSides(req);
-        DoTriangleSideHeight(req);
-        DoTriangleSidesAngle(req);
-        DoRectangleSides(req);
-        DoRectangleDiameters(req);
-        DoSquare(req);
-        DoRightPolygonAmount(req);
-        DoRightPolygonAngle(req);
-        DoCircle(req);
-        DoEllipse(req);
-        DoParallelogramm(req);
-        //Получаем модель формы для подстановки значений
-        FormVisualisation.GetForm(req);
-        /*
-        Перенаправляем наш запрос на вторую страницу,
-        где и будем выводить наш ответ
-         */
-        req.getRequestDispatcher("index.jsp").forward(req, resp);
+        DoTriangleThreeSides(req); //Проверка треугольника с тремя сторонами
+        DoTriangleSideHeight(req); //Проверка прямоугольного треугольника
+        DoTriangleSidesAngle(req); //Проверка треугольника с двумя сторонами и углом между ними
+        DoRectangleSides(req); //Проверка прямоугольника по сторонам
+        DoRectangleDiameters(req); //Проверка прямоугольника по диаметрам
+        DoSquare(req); //Проверка квадрата
+        DoRightPolygonAmount(req); //Проверка правильного многоугольника по стороне и их количеству
+        DoRightPolygonAngle(req); //Проверка правильного многоугольника по стороне и их углу
+        DoCircle(req); //Проверка окружности
+        DoEllipse(req); //Проверка эллипса
+        DoParallelogramm(req); //Проверка парралелограмма        
+        FormVisualisation.GetForm(req); //Получаем обновленную модель формы для подстановки значений
+        req.getRequestDispatcher("index.jsp").forward(req, resp); //оформление jsp документа и передача ему управления
     }
-
+    
+    /**
+     * Определяет, являются ли три значения сторонами треугольника
+     *
+     * @param s1 {@link Double} строна треугольника 1
+     * 
+     * @param s2 {@link Double} строна треугольника 2
+     * 
+     * @param s3 {@link Double} строна треугольника 3
+     */
     protected Boolean IsTriangle(Double s1, Double s2, Double s3)
     {
         if (s1 <=0 || s2 <=0 || s3 <=0) return false;
@@ -73,60 +90,145 @@ public class GeometryServlet extends HttpServlet {
         if (s3 >= s1+s2) return false;
         return true;
     }
+
+    /**
+     * Определяет, являются ли три значения сторонами треугольника
+     *
+     * @param s1 {@link Double} строна треугольника 1
+     * 
+     * @param s2 {@link Double} строна треугольника 2
+     * 
+     * @param angle {@link Double} угол между сторонами
+     */
     protected Boolean IsTriangleAngle(Double s1, Double s2, Double angle)
     {
         if (s1 <=0 || s2 <=0 || angle <=0) return false;
         if (angle <=0 || angle >=180) return false;
         return true;
     }
+    
+    /**
+     * Определяет, являются ли два значения сторонами треугольника
+     *
+     * @param s1 {@link Double} катет треугольника 1
+     * 
+     * @param s2 {@link Double} катет треугольника 2
+     */
     protected Boolean IsTriangle(Double s1, Double s2)
     {
         if (s1 <=0 || s2 <=0) return false;
         return true;
     }
+
+    /**
+     * Определяет, являются ли два значения сторонами прямоугольника
+     *
+     * @param s1 {@link Double} сторона 1
+     * 
+     * @param s2 {@link Double} сторона 2
+     */
     protected Boolean IsRectangleSides(Double s1, Double s2)
     {
         if (s1 <=0 || s2 <=0) return false;
         return true;
     }
+
+    /**
+     * Определяет, являются ли два значения сторонами прямоугольника
+     *
+     * @param d {@link Double} диаметр
+     * 
+     * @param s {@link Double} сторона
+     */
     protected Boolean IsRectangleDiameter(Double d, Double s)
     {
         if (d <=0 || s <=0) return false;
         if (d<=s) return false;
         return true;
     }
+
+    /**
+     * Определяет, являются ли значение стороной квадрата
+     * 
+     * @param s {@link Double} сторона
+     */
     protected Boolean IsSquare(Double s)
     {
         if (s <=0) return false;
         return true;
     }
+
+    /**
+     * Определяет, могут ли значения составить правильный многоугольник
+     * 
+     * @param s {@link Double} сторона
+     * 
+     * @param n {@link Double} количество сторон
+     */
     protected Boolean IsPolygon(Double s, Double n)
     {
         if (s <=0 || n <=0) return false;
         return true;
     }
+
+    /**
+     * Определяет, могут ли значения составить правильный многоугольник
+     * 
+     * @param s {@link Double} сторона
+     * 
+     * @param angle {@link Double} угол между соседними сторонами
+     */
     protected Boolean IsPolygonAngle(Double s, Double angle)
     {
         if (s <=0 || angle <=0) return false;
         if (angle <=0 || angle >=180) return false;
         return true;
     }
+
+    /**
+     * Определяет, является ли значение диаметром окружности
+     * 
+     * @param r {@link Double} радиус
+     */
     protected Boolean IsCircle(Double r)
     {
         if (r<=0) return false;
         return true;
     }
+
+    /**
+     * Определяет, является ли значение диаметром эллипса
+     * !Не обязательно r1 < r2.
+     * 
+     * @param r1 {@link Double} радиус малый
+     * 
+     * @param r2 {@link Double} радиус большой
+     */
     protected Boolean IsEllipse(Double r1,Double r2)
     {
         if (r1 <=0 || r2 <=0) return false;
         return true;
     }
+
+    /**
+     * Определяет, можно ли из значений составить парралелограмм
+     * 
+     * @param s1 {@link Double} радиус малый
+     * 
+     * @param s2 {@link Double} радиус большой
+     * 
+     * @param h1 {@link Double} радиус большой
+     */
     protected Boolean IsParallelogramm(Double s1,Double s2, Double h1)
     {
         if (s1 <=0 || s2 <=0 || h1 <=0) return false;
         if (s2< h1) return false;
         return true;
     }
+
+    //ЗДЕСЬ И ДАЛЕЕ - эта часть кода отвечает за обработку данных из запроса и вывода ответа на jsp страницу.
+    //Если пришли подходящие аргументы - рассчитываются периметр и площадь, разметка ответа сохраняется в атрибут запроса
+    //Если данные пришли с ошибкой - вывод ошибки.
 
     protected void DoTriangleThreeSides (HttpServletRequest req)
     {

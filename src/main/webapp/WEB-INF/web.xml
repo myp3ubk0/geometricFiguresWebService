@@ -17,7 +17,7 @@
     <servlet-name>FormVisualisation</servlet-name>
     <servlet-class>com.ugatu.servlets.FormVisualisation</servlet-class>
   </servlet>
-
+  
   <servlet-mapping>
     <servlet-name>GeometryServlet</servlet-name>
     <url-pattern>/servlet</url-pattern>
@@ -25,5 +25,5 @@
   <servlet-mapping>
     <servlet-name>FormVisualisation</servlet-name>
     <url-pattern>/getForm</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> 
 </web-app>
